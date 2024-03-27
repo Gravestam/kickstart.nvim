@@ -118,6 +118,17 @@ require('lazy').setup({
     end,
   },
 
+  -- Setup autoclose
+  {
+    'm4xshen/autoclose.nvim',
+    event = 'VimEnter',
+    config = function()
+      require('autoclose').setup {
+        close = true,
+      }
+    end,
+  },
+
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
