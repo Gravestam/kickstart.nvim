@@ -98,6 +98,11 @@ require('lazy').setup({
   },
 
   {
+    'mg979/vim-visual-multi',
+    event = 'VimEnter',
+  },
+
+  {
     -- Setup github copilot
     'zbirenbaum/copilot.lua',
     event = 'VimEnter',
