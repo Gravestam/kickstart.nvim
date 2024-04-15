@@ -398,6 +398,32 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+      local messagesToFilter = {
+        'File is a CommonJS module; it may be converted to an ES module.',
+      }
+
+      local function tsServerFilterMessagesOverride(_, result, ctx, config)
+        local filteredDiagnostics = {}
+
+        for _, diagnostic in ipairs(result.diagnostics) do
+          local found = false
+          for _, message in ipairs(messagesToFilter) do
+            if diagnostic.message == message then
+              found = true
+              break
+            end
+          end
+          if not found then
+            table.insert(filteredDiagnostics, diagnostic)
+          end
+        end
+
+        result.diagnostics = filteredDiagnostics
+
+        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+      end
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -411,6 +437,12 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+
+        tsserver = {
+          handlers = {
+            ['textDocument/publishDiagnostics'] = tsServerFilterMessagesOverride,
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
