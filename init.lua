@@ -409,8 +409,8 @@ require('lazy').setup({
 
         for _, diagnostic in ipairs(result.diagnostics) do
           local found = false
-          for _, message in ipairs(messagesToFilter) do
-            if string.find(diagnostic.message, messagesToFilter, 1, true) then
+          for _, m in ipairs(messagesToFilter) do
+            if string.find(diagnostic.message, m, 1, true) then
               found = true
               break
             end
