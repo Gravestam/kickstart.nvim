@@ -20,6 +20,10 @@ vim.opt.mouse = 'a'
 -- If mode is shown elsewhere, like in a status line, this will be reduntant it true
 vim.opt.showmode = false
 
+-- Pressing tab should be the same length as 4 spaces
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+
 -- Sync clipboard between OS and neovim
 vim.opt.clipboard = 'unnamedplus'
 
