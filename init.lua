@@ -401,6 +401,7 @@ require('lazy').setup({
 
       local messagesToFilter = {
         'File is a CommonJS module; it may be converted to an ES module.',
+        'Could not find a declaration file for module',
       }
 
       local function tsServerFilterMessagesOverride(_, result, ctx, config)
@@ -409,7 +410,7 @@ require('lazy').setup({
         for _, diagnostic in ipairs(result.diagnostics) do
           local found = false
           for _, message in ipairs(messagesToFilter) do
-            if diagnostic.message == message then
+            if string.find(diagnostic.message, messagesToFilter, 1, true) then
               found = true
               break
             end
