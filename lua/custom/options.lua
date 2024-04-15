@@ -24,6 +24,13 @@ vim.opt.showmode = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
+-- Set folding
+vim.opt.fillchars = { fold = ' ' }
+vim.opt.foldmethod = 'indent'
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
+vim.g.markdown_folding = 1
+
 -- Sync clipboard between OS and neovim
 vim.opt.clipboard = 'unnamedplus'
 
