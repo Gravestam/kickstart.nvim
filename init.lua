@@ -14,12 +14,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -28,6 +22,8 @@ vim.keymap.set('n', '<C-left>', ':tabprevious<CR>', { desc = 'Move to [P]revious
 vim.keymap.set('n', '<C-right>', ':tabnext<CR>', { desc = 'Move to [N]ext tab' })
 -- Open new tab with C-t
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { desc = 'Open new [T]ab' })
+
+vim.keymap.set('n', '<C-e>', '<C-d>', { desc = 'Scroll [D]own half page' })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -249,12 +245,23 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
 
+      -- Themes with preview
+      vim.keymap.set('n', '<leader>st', function()
+        builtin.colorscheme(require('telescope.themes').get_dropdown {
+          winblend = 10,
+          previewer = true,
+          layout_config = { width = 0.65, height = 0.5 },
+        })
+      end, { desc = '[S]earch [T]hemes' })
+
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
           previewer = false,
+          -- Make it wider
+          layout_config = { width = 0.65, height = 0.5 },
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
