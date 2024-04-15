@@ -76,6 +76,20 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
+  {
+    'smoka7/hop.nvim',
+    version = '*',
+    opts = {},
+    config = function()
+      require('hop').setup {
+        vim.keymap.set('n', '<leader><leader>/', require('hop').hint_patterns, { desc = '[/] Patterns' }),
+        vim.keymap.set('n', '<leader><leader>a', require('hop').hint_anywhere, { desc = '[A]nywhere' }),
+        vim.keymap.set('n', '<leader><leader>w', require('hop').hint_words, { desc = '[W]ords' }),
+        vim.keymap.set('n', '<leader><leader>l', require('hop').hint_lines, { desc = '[L]ines' }),
+      }
+    end,
+  },
+
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
@@ -236,7 +250,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
